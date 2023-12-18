@@ -5,7 +5,7 @@
 * @value: Value to be pushed onto the stack.
 */
 
-void push(stack_t **stack,unsigned int value)
+void push(stack_t **stack, unsigned int value)
 {
 stack_t *newNode = malloc(sizeof(stack_t));
 if (!newNode)

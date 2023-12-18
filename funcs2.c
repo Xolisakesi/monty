@@ -41,27 +41,7 @@ void nop(stack_t **stack, unsigned int line_number)
 * @stack: Double pointer to the head of the stack.
 * @line_number: Line number in the Monty bytecode file.
 */
-/*
-void sub(stack_t **stack, unsigned int line_number)
-{
-(void)line_number;
 
-if (*stack == NULL || (*stack)->next == NULL)
-{
-fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
-exit(EXIT_FAILURE);
-}
-
-(*stack)->next->n -= (*stack)->n;
-
-stack_t *temp = *stack;
-*stack = (*stack)->next;
-
-if (*stack)
-(*stack)->prev = NULL;
-
-}
-*/
 void sub(stack_t **stack, unsigned int line_number)
 {
 /* Implementation of the sub opcode */
@@ -130,34 +110,27 @@ if (*stack == NULL || (*stack)->next == NULL)
 fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
 exit(EXIT_FAILURE);
 }
-
 top_element = (*stack)->n;
 *stack = (*stack)->next;
 second_top_element = (*stack)->n;
-*stack = (*stack)->prev;/* Move back to the original position*/
-
-/* Pop the top two elements from the stack*/
+*stack = (*stack)->prev;
 temp1 = *stack;
 *stack = (*stack)->prev;
 free(temp1);
-
 temp2 = *stack;
 *stack = (*stack)->prev;
 free(temp2);
 /* Perform the multiplication*/
-result = second_top_element * top_element;
-/* Push the result back onto the stack*/
+result = second_top_element *top_element;
 new_node = malloc(sizeof(stack_t));
 if (new_node == NULL)
 {
 fprintf(stderr, "Memory allocation error\n");
 exit(EXIT_FAILURE);
 }
-
 new_node->n = result;
 new_node->prev = NULL;
 new_node->next = *stack;
-
 if (*stack != NULL)
 {
 (*stack)->prev = new_node;

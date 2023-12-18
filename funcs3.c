@@ -9,26 +9,24 @@ void mod(stack_t **stack, unsigned int line_number)
 int result, divisor, dividend;
 stack_t *temp1, *temp2, *new_node;
 
-if (*stack == NULL || (*stack)->next == NULL) {
+if (*stack == NULL || (*stack)->next == NULL)
+{
 fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 exit(EXIT_FAILURE);
 }
-
 divisor = (*stack)->n;
-if (divisor == 0) {
+if (divisor == 0)
+{
 fprintf(stderr, "L%u: division by zero\n", line_number);
 exit(EXIT_FAILURE);
 }
-
 *stack = (*stack)->next;
 dividend = (*stack)->n;
 *stack = (*stack)->prev; /* Move back to the original position*/
-
 /*Pop the top two elements from the stack*/
 temp1 = *stack;
 *stack = (*stack)->prev;
 free(temp1);
-
 temp2 = *stack;
 *stack = (*stack)->prev;
 free(temp2);
@@ -36,20 +34,18 @@ free(temp2);
 result = dividend % divisor;
 /*Push the result back onto the stack*/
 new_node = malloc(sizeof(stack_t));
-if (new_node == NULL) {
+if (new_node == NULL)
+{
 fprintf(stderr, "Memory allocation error\n");
 exit(EXIT_FAILURE);
 }
-
 new_node->n = result;
 new_node->prev = NULL;
 new_node->next = *stack;
-
 if (*stack != NULL)
 {
 (*stack)->prev = new_node;
 }
-
 *stack = new_node;
 }
 /**
@@ -142,9 +138,8 @@ if (*stack != NULL && (*stack)->next != NULL)
 {
 /* Find the last element in the stack */
 last = *stack;
-while (last->next != NULL) {
+while (last->next != NULL)
 last = last->next;
-}
 /* Update pointers for rotation*/
 last->prev->next = NULL;
 last->prev = NULL;

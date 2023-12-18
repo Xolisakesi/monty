@@ -17,7 +17,7 @@ if (*line == NULL || *len == 0)
 if (*line == NULL)
 {
 perror("Error allocating memory");
-return -1;
+return (-1);
 }
 }
 i = 0;
@@ -47,7 +47,10 @@ return (-1);  /*Indicates end of file*/
 }
 
 /**
-* Main function to interpret Monty bytecode file.
+* main: The main function of the program.
+* @argc: The number of command-line arguments.
+* @argv: An array of strings
+* Returns: An integer indicating the exit status of the program.
 */
 
 int main(int argc, char *argv[])
@@ -84,30 +87,23 @@ if (argc != 2)
 fprintf(stderr, "USAGE: monty file\n");
 exit(EXIT_FAILURE);
 }
-
 file = fopen(argv[1], "r");
 if (!file)
 {
 fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 exit(EXIT_FAILURE);
 }
-
 line = NULL;
 len = 0;
 line_number = 0;
 stack = NULL;
-
 while (_getline(&line, &len, file) != -1)
 {
 line_number++;
-/* Tokenize the line*/
 opcode = strtok(line, " \t\n");
 if (opcode == NULL || *opcode == '#')
-{
-/*Ignore empty lines and comments*/
 continue;
-}
-/*Search for the corresponding function for the opcode*/
+
 i = 0;
 while (instructions[i].opcode != NULL)
 {
@@ -126,6 +122,5 @@ exit(EXIT_FAILURE);
 }
 free(line);
 fclose(file);
-/*Clean up remaining nodes in the stack (if needed)*/
 return (0);
 }
